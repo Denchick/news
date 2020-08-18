@@ -1,15 +1,15 @@
 package controller
 
 import (
+	"github.com/denchick/news/database"
 	"github.com/julienschmidt/httprouter"
 	"html/template"
 	"net/http"
 	"path/filepath"
-	"server/articles"
 )
 
 func StartPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	mockArticles := articles.GetMockArticles()
+	mockArticles := database.GetMockArticles()
 	main := filepath.Join("public", "html", "articles.html")
 	tmpl, err := template.ParseFiles(main)
 	if err != nil {

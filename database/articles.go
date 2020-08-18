@@ -1,8 +1,7 @@
-package articles
+package database
 
 import (
 	"gorm.io/gorm"
-	"server/utils"
 	"time"
 )
 
@@ -18,13 +17,13 @@ func (a *Article) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-func ReadAll(db *gorm.DB) []Article {
+func ReadAllArticles(db *gorm.DB) []Article {
 	var articles []Article
 	db.Find(&articles)
 	return articles
 }
 
-func CreateOrUpdate(db *gorm.DB, articles []Article) {
+func CreateOrUpdateArticles(db *gorm.DB, articles []Article) {
 	addedLinks := readLinks(db)
 	added, notAdded := splitArticles(articles, addedLinks)
 	db.Create(&notAdded)
@@ -39,13 +38,22 @@ func readLinks(db *gorm.DB) []string {
 
 func splitArticles(articles []Article, addedLinks []string) (notAdded []Article, added []Article) {
 	for _, article := range articles {
-		if utils.Contains(addedLinks, article.Link) {
+		if contains(addedLinks, article.Link) {
 			added = append(added, article)
 		} else {
 			notAdded = append(notAdded, article)
 		}
 	}
 	return
+}
+
+func contains(slice []string, item string) bool {
+	for _, s := range slice {
+		if s == item {
+			return true
+		}
+	}
+	return false
 }
 
 func GetMockArticles() []Article {

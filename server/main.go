@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/denchick/news/server/controller"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
-	"server/controller"
 )
 
 func main() {

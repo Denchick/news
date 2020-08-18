@@ -1,25 +1,22 @@
 package main
 
 import (
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"server/articles"
+	"github.com/denchick/news/database"
 )
 
-func StartParse(db *gorm.DB) {
+func parseArticles() (articles []database.Article) {
 	for url, rule := range getRules() {
-		articlesArr := parseSite(url, rule)
-		articles.CreateOrUpdate(db, articlesArr)
+		articles = append(articles, parseSite(url, rule)...)
 	}
 
 	for _, url := range getFeeds() {
-		articlesArr := parseFeed(url)
-		articles.CreateOrUpdate(db, articlesArr)
+		articles = append(articles, parseFeed(url)...)
 	}
+	return
 }
 
-func main() {
-	articlesList := []articles.Article{
+func getMockArticles() []database.Article {
+	return []database.Article{
 		{
 			Title:       "Путеводитель по Тюмени: примерный бюджет и программа",
 			Description: "«Тюмень — столица деревень» — миф и бред. Это уже давно не так: город развивается быстро и может удивить даже тех, кого не удивляет раф с попкорном блёстками. Для активного отдыха, как писали выше, подходят биатлонный центр, Кулига-парк, в черте города — пруд «Лесной», эко-парк Затюменский, Гилёвская роща, созданы локации на набережной.",
@@ -36,17 +33,14 @@ func main() {
 			Link: "https://www.aviasales.ru/blog/shalnaya-kirgiziya",
 		},
 	}
-	dsn := "host=rogue.db.elephantsql.com port=5432 user=acumlegw dbname=acumlegw password=2ZbAnECs3Lfdc9k9sbpRWzcCOHd1mo97"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+}
+
+func main() {
+	db, err := database.Connect()
 	if err != nil {
 		panic("failed to connect database")
 	}
-	db.Migrator().DropTable(&articles.Article{})
-	db.AutoMigrate(&articles.Article{})
-
-
-	articles.CreateOrUpdate(db, articlesList)
-
-
-
+	// db.Migrator().DropTable(&database.Article{})
+	db.AutoMigrate(&database.Article{})
+	database.CreateOrUpdateArticles(db, parseArticles())
 }

@@ -2,19 +2,19 @@ package main
 
 import (
 	"github.com/PuerkitoBio/goquery"
+	"github.com/denchick/news/database"
 	"log"
 	"net/http"
-	"server/articles"
 	"strings"
 )
 
-func parseSite(url string, rule Rule) (result []articles.Article) {
+func parseSite(url string, rule Rule) (result []database.Article) {
 	for _, link := range findAllArticleLinks(url) {
 		html := loadHtml(link)
 		if !isArticlePage(rule, html) {
 			continue
 		}
-		article := articles.Article{
+		article := database.Article{
 			Title: strings.TrimSpace(html.Find(rule.Title).Text()),
 			Description: strings.TrimSpace(html.Find(rule.Description).Text()),
 			Link: strings.TrimSpace(link),
