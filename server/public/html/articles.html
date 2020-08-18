@@ -1,0 +1,21 @@
+{{define "articles"}}
+
+    <!doctype html>
+    <html lang="ru" class="h-100">
+    <head>
+        <title>News</title>
+    </head>
+    <body>
+        <main>
+            <h1>News</h1>
+            {{range .}}
+            <section>
+                <h2><a href="{{.Link}}">{{.Title}}</a></h2>
+                <p>{{.Description}}</p>
+            </section>
+            {{end}}
+        </main>
+    </body>
+    </html>
+
+{{end}}
