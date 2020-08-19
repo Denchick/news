@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func StartPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func HandleIndexPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	mockArticles := database.GetMockArticles()
 	main := filepath.Join("public", "html", "articles.html")
 	tmpl, err := template.ParseFiles(main)

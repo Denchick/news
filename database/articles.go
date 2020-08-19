@@ -2,6 +2,7 @@ package database
 
 import (
 	"gorm.io/gorm"
+	"strings"
 	"time"
 )
 
@@ -28,6 +29,16 @@ func CreateOrUpdateArticles(db *gorm.DB, articles []Article) {
 	added, notAdded := splitArticles(articles, addedLinks)
 	db.Create(&notAdded)
 	db.Save(&added)
+}
+
+func FindArticleByTitle(db *gorm.DB, query string) (result []Article) {
+	articles := ReadAllArticles(db)
+	for _, article := range articles {
+		if strings.Contains(article.Title, query) {
+			result = append(result, article)
+		}
+	}
+	return
 }
 
 func readLinks(db *gorm.DB) []string {
