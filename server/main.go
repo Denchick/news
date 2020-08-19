@@ -16,12 +16,11 @@ func createRouter() (router *httprouter.Router){
 }
 
 func main() {
-	router := createRouter()
-	err := http.ListenAndServe("localhost:4444", router)
+	err := controller.ConnectToDatabase()
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = controller.ConnectToDatabase()
+	err = http.ListenAndServe("localhost:4444", createRouter())
 	if err != nil {
 		log.Fatal(err)
 	}

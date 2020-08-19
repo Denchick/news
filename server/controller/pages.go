@@ -9,14 +9,30 @@ import (
 )
 
 func HandleIndexPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	mockArticles := database.GetMockArticles()
-	main := filepath.Join("public", "html", "articles.html")
-	tmpl, err := template.ParseFiles(main)
+	articles := database.ReadAllArticles(Db)
+	templatePath := filepath.Join("public", "html", "articles.html")
+	template, err := template.ParseFiles(templatePath)
 	if err != nil {
 		http.Error(rw, err.Error(), 400)
 		return
 	}
-	err = tmpl.ExecuteTemplate(rw, "articles", mockArticles)
+	err = template.ExecuteTemplate(rw, "articles", articles)
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+}
+
+func HandleSearchPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	query := r.URL.Query().Get("query")
+	articles := database.FindArticleByTitle(Db, query)
+	templatePath := filepath.Join("public", "html", "articles.html")
+	template, err := template.ParseFiles(templatePath)
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+	err = template.ExecuteTemplate(rw, "articles", articles)
 	if err != nil {
 		http.Error(rw, err.Error(), 400)
 		return
