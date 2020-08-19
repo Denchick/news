@@ -4,15 +4,32 @@ import (
 	"github.com/denchick/news/database"
 )
 
-func parseArticles() (articles []database.Article) {
+func parseArticles() []database.Article { // TODO maybe should refactor
+	articlesMap := make(map[string]database.Article)
 	for url, rule := range getRules() {
-		articles = append(articles, parseSite(url, rule)...)
+		for _, article := range parseSite(url, rule) {
+			if len(article.Link) == 0 {
+				continue
+			}
+			articlesMap[article.Link] = article
+		}
+	}
+	for _, url := range getFeeds() {
+		for _, article := range parseFeed(url) {
+			if len(article.Link) == 0 {
+				continue
+			}
+			articlesMap[article.Link] = article
+		}
 	}
 
-	for _, url := range getFeeds() {
-		articles = append(articles, parseFeed(url)...)
+	result := make([]database.Article, len(articlesMap))
+	i := 0
+	for _, article := range articlesMap {
+		result[i] = article
+		i++
 	}
-	return
+	return result
 }
 
 func getMockArticles() []database.Article {
@@ -40,7 +57,6 @@ func main() {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	// db.Migrator().DropTable(&database.Article{})
 	db.AutoMigrate(&database.Article{})
 	database.CreateOrUpdateArticles(db, parseArticles())
 }
