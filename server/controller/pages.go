@@ -10,7 +10,7 @@ import (
 
 func HandleIndexPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	articles := database.ReadLastArticles(Db)
-	templatePath := filepath.Join("public", "html", "articles.html")
+	templatePath := filepath.Join("public", "html", "template.html")
 	template, err := template.ParseFiles(templatePath)
 	if err != nil {
 		http.Error(rw, err.Error(), 400)
@@ -26,13 +26,13 @@ func HandleIndexPage(rw http.ResponseWriter, r *http.Request, p httprouter.Param
 func HandleSearchPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	query := r.URL.Query().Get("query")
 	articles := database.FindArticleByTitle(Db, query)
-	templatePath := filepath.Join("public", "html", "articles.html")
+	templatePath := filepath.Join("public", "html", "template.html")
 	template, err := template.ParseFiles(templatePath)
 	if err != nil {
 		http.Error(rw, err.Error(), 400)
 		return
 	}
-	err = template.ExecuteTemplate(rw, "articles", articles)
+	err = template.ExecuteTemplate(rw, "search", articles)
 	if err != nil {
 		http.Error(rw, err.Error(), 400)
 		return
