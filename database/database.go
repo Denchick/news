@@ -7,6 +7,7 @@ import (
 )
 
 func Connect() (*gorm.DB, error) {
+	// Так хранить не хорошо
 	dsn := "host=rogue.db.elephantsql.com port=5432 user=acumlegw dbname=acumlegw password=2ZbAnECs3Lfdc9k9sbpRWzcCOHd1mo97"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
