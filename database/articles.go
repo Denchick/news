@@ -20,14 +20,20 @@ func (a *Article) BeforeCreate(tx *gorm.DB) error {
 
 func ReadAllArticles(db *gorm.DB) []Article {
 	var articles []Article
-	db.Find(&articles)
+	db.Order("created_at").Find(&articles)
+	return articles
+}
+
+func ReadLastArticles(db *gorm.DB) []Article {
+	var articles []Article
+	db.Order("created_at").Limit(20).Find(&articles)
 	return articles
 }
 
 func CreateOrUpdateArticles(db *gorm.DB, articles []Article) {
 	addedLinks := readLinks(db)
-	added, _ := splitArticles(articles, addedLinks)
-	// db.Create(&notAdded)
+	added, notAdded := splitArticles(articles, addedLinks)
+	db.Create(&notAdded)
 	db.Save(&added)
 }
 

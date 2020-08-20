@@ -9,7 +9,7 @@ import (
 )
 
 func HandleIndexPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	articles := database.ReadAllArticles(Db)
+	articles := database.ReadLastArticles(Db)
 	templatePath := filepath.Join("public", "html", "articles.html")
 	template, err := template.ParseFiles(templatePath)
 	if err != nil {
