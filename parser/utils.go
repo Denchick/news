@@ -17,6 +17,7 @@ func createArticle(title string, description string, link string) database.Artic
 func getCleanedDescription(text string, limit int) (result string) { // TODO replace /n to whitespace
 	doc, _ := goquery.NewDocumentFromReader(strings.NewReader(text))
 	text = strings.TrimSpace(doc.Text())
+	text = strings.ReplaceAll(text, "\n", " ")
 	runes := []rune(text)
 	if len(runes) >= limit {
 		return string(runes[:limit]) + "..."
