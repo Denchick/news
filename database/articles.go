@@ -26,8 +26,8 @@ func ReadAllArticles(db *gorm.DB) []Article {
 
 func CreateOrUpdateArticles(db *gorm.DB, articles []Article) {
 	addedLinks := readLinks(db)
-	added, notAdded := splitArticles(articles, addedLinks)
-	db.Create(&notAdded)
+	added, _ := splitArticles(articles, addedLinks)
+	// db.Create(&notAdded)
 	db.Save(&added)
 }
 

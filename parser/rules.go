@@ -13,10 +13,10 @@ func getRules() map[string]Rule {
 		Exists: "meta[content='article']",
 		Description: "article p:nth-of-type(3)",
 	}
-	rules["https://meduza.io/"] = Rule{
-		Title: "main h1",
-		Exists: "meta[content='article']",
-		Description: "main .GeneralMaterial-article p:nth-of-type(1)",
+	rules["https://vandrouki.ru/"] = Rule{
+		Title: ".entry-title",
+		Exists: "body[class*='single-post']",
+		Description: ".entry-content",
 	}
 	return rules
 }

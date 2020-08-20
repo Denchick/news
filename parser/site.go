@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 func parseSite(address string, rule Rule) (result []database.Article) {
@@ -27,23 +28,38 @@ func findAllArticleLinks(address string) []string {
 	if doc == nil {
 		return make([]string, 0)
 	}
+	parsedAddress, _ := url.Parse(address)
 	links := make([]string, 0)
 	doc.Find("a[href^='" + address + "']").Each(func(i int, s *goquery.Selection) {
-		href, exists := s.Attr("href")
-		if exists {
+		href, ok := parseHref(parsedAddress.Host, s)
+		if ok {
 			links = append(links, href)
 		}
 	})
-	parsed, _ := url.Parse(address)
+
 	doc.Find("a[href^='/']").Each(func(i int, s *goquery.Selection) {
-		href, exists := s.Attr("href")
-		if exists && href != "/"{
-			s2 := parsed.Scheme + "://" + parsed.Host + href
-			log.Printf(s2)
-			links = append(links, s2)
+		href, ok := parseHref(parsedAddress.Host, s)
+		if ok {
+			links = append(links, href)
 		}
 	})
 	return links
+}
+
+func parseHref(host string, s *goquery.Selection) (string, bool) {
+	href, exists := s.Attr("href")
+	if !exists {
+		return "", false
+	}
+	parsed, err := url.Parse(href)
+	if err != nil || parsed.Path == "/" {
+		return "", false
+	}
+	parsedScheme := parsed.Scheme
+	if parsedScheme == "" {
+		parsedScheme = "https"
+	}
+	return strings.Join([]string {parsedScheme, "://", host, parsed.Path}, ""), true
 }
 
 func loadHtml(address string) *goquery.Document {
