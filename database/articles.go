@@ -10,7 +10,7 @@ type Article struct {
 	Link        string `gorm:"column:id"`
 	Title       string `gorm:"index"`
 	Description string
-	CreatedAt time.Time
+	CreatedAt   time.Time
 }
 
 func (a *Article) BeforeCreate(tx *gorm.DB) error {

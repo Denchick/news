@@ -8,9 +8,9 @@ import (
 
 func createArticle(title string, description string, link string) database.Article {
 	return database.Article{
-		Title: strings.TrimSpace(title),
+		Title:       strings.TrimSpace(title),
 		Description: getCleanedDescription(description, 500),
-		Link: strings.TrimSpace(link),
+		Link:        strings.TrimSpace(link),
 	}
 }
 

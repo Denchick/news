@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func createRouter() (router *httprouter.Router){
+func createRouter() (router *httprouter.Router) {
 	router = httprouter.New()
 	router.ServeFiles("/public/*filepath", http.Dir("public"))
 	router.GET("/", controller.HandleIndexPage)

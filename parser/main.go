@@ -26,7 +26,7 @@ func parseArticles() []database.Article {
 	return toArray(articlesMap)
 }
 
-func toArray(articlesMap map[string]database.Article) []database.Article{
+func toArray(articlesMap map[string]database.Article) []database.Article {
 	result := make([]database.Article, len(articlesMap))
 	i := 0
 	for _, article := range articlesMap {

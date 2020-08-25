@@ -59,7 +59,7 @@ func parseHref(host string, s *goquery.Selection) (string, bool) {
 	if parsedScheme == "" {
 		parsedScheme = "https"
 	}
-	return strings.Join([]string {parsedScheme, "://", host, parsed.Path}, ""), true
+	return strings.Join([]string{parsedScheme, "://", host, parsed.Path}, ""), true
 }
 
 func loadHtml(address string) *goquery.Document {
@@ -82,4 +82,3 @@ func loadHtml(address string) *goquery.Document {
 func isArticlePage(rule Rule, document *goquery.Document) bool {
 	return len(document.Find(rule.Exists).Nodes) != 0
 }
-

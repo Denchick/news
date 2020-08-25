@@ -7,7 +7,7 @@ import (
 )
 
 func getFeeds() []string {
-	return []string {"https://vas3k.ru/rss/", "https://meduza.io/rss/all"}
+	return []string{"https://vas3k.ru/rss/", "https://meduza.io/rss/all"}
 }
 
 func parseFeed(feedUrl string) (articlesArr []database.Article) {
@@ -24,4 +24,3 @@ func parseFeed(feedUrl string) (articlesArr []database.Article) {
 	}
 	return
 }
-
