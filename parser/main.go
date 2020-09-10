@@ -7,14 +7,6 @@ import (
 
 func parseArticles() []database.Article {
 	articlesMap := make(map[string]database.Article)
-	for url, rule := range getRules() {
-		log.Printf("Start parsing %s\n", url)
-		for _, article := range parseSite(url, rule) {
-			if len(article.Link) > 0 {
-				articlesMap[article.Link] = article
-			}
-		}
-	}
 	for _, url := range getFeeds() {
 		log.Printf("Start parsing %s\n", url)
 		for _, article := range parseFeed(url) {
