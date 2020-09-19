@@ -20,7 +20,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = http.ListenAndServe("localhost:4444", createRouter())
+	addr := "localhost:4444"
+	log.Printf("run server on %s", addr)
+	err = http.ListenAndServe(addr, createRouter())
 	if err != nil {
 		log.Fatal(err)
 	}

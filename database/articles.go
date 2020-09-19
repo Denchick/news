@@ -2,7 +2,6 @@ package database
 
 import (
 	"gorm.io/gorm"
-	"strings"
 	"time"
 )
 
@@ -37,13 +36,9 @@ func CreateOrUpdateArticles(db *gorm.DB, articles []Article) {
 	db.Save(&added)
 }
 
-func FindArticleByTitle(db *gorm.DB, query string) (result []Article) {
-	articles := ReadAllArticles(db)
-	for _, article := range articles {
-		if strings.Contains(article.Title, query) {
-			result = append(result, article)
-		}
-	}
+func FindArticleByTitle(db *gorm.DB, query string) (articles []Article) {
+	pattern := "%" + query + "%"
+	db.Where("title LIKE ?", pattern).Find(&articles)
 	return
 }
 
