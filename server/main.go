@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/denchick/news/server/controller"
-	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
+
+	"github.com/denchick/news/server/controller"
+	"github.com/julienschmidt/httprouter"
 )
 
 func createRouter() (router *httprouter.Router) {
@@ -20,7 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	addr := "localhost:4444"
+	addr := ":8081"
 	log.Printf("run server on %s", addr)
 	err = http.ListenAndServe(addr, createRouter())
 	if err != nil {
