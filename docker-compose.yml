@@ -8,39 +8,47 @@ services:
     ports:
       - "8080:8081" # Forward the exposed port 8080 on the container to port 8080 on the host machine
     restart: unless-stopped
+    depends_on:
+      - postgres
     environment: # Pass environment variables to the service
-      DATABASE_URL: "host=rogue.db.elephantsql.com port=5432 user=acumlegw dbname=acumlegw password=2ZbAnECs3Lfdc9k9sbpRWzcCOHd1mo97"
+      DATABASE_URL: "host=localhost port=5432 user=${POSTGRES_USER} dbname=${POSTGRES_DB} password=${POSTGRES_PASSWORD}"
+    env_file:
+      - .env
 
   parser:
     build:
       context: . # Use an image built from the specified dockerfile in the current directory.
       dockerfile: ./parser/Dockerfile
     restart: unless-stopped
+    depends_on:
+      - postgres
     environment: # Pass environment variables to the service
-      DATABASE_URL: "host=rogue.db.elephantsql.com port=5432 user=acumlegw dbname=acumlegw password=2ZbAnECs3Lfdc9k9sbpRWzcCOHd1mo97"
+      DATABASE_URL: "host=localhost port=5432 user=${POSTGRES_USER} dbname=${POSTGRES_DB} password=${POSTGRES_PASSWORD}"
+    env_file:
+      - .env
+
   postgres:
     image: postgres
     restart: always
-    environment:
-      POSTGRES_USER: "unicorn_user"
-      POSTGRES_PASSWORD: "magical_password"
-      POSTGRES_DB: "rainbow_database"
     volumes:
      - /var/postgresql/data:/var/lib/postgresql/data
+    env_file:
+      - .env
     networks:
      - postgresql
+
   pgadmin4:
     image: dpage/pgadmin4
     restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "angelo@osradar.com"
-      PGADMIN_DEFAULT_PASSWORD: "angelo123"
     ports:
      - "8228:80"
     depends_on:
      - postgres
+    env_file:
+      - .env
     networks:
      - postgresql
+
 networks:
   postgresql:
         driver: bridge
