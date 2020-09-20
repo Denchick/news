@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  server:
+    build:
+      context: . # Use an image built from the specified dockerfile in the current directory.
+      dockerfile: ./server/Dockerfile
+    ports:
+      - "8080:8081" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    restart: unless-stopped
+    environment: # Pass environment variables to the service
+      DATABASE_URL: "host=rogue.db.elephantsql.com port=5432 user=acumlegw dbname=acumlegw password=2ZbAnECs3Lfdc9k9sbpRWzcCOHd1mo97"
+
+  parser:
+    build:
+      context: . # Use an image built from the specified dockerfile in the current directory.
+      dockerfile: ./parser/Dockerfile
+    restart: unless-stopped
+    environment: # Pass environment variables to the service
+      DATABASE_URL: "host=rogue.db.elephantsql.com port=5432 user=acumlegw dbname=acumlegw password=2ZbAnECs3Lfdc9k9sbpRWzcCOHd1mo97"
