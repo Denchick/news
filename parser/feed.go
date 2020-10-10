@@ -1,15 +1,16 @@
 package main
 
 import (
+	"log"
+	"strings"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/denchick/news/database"
 	"github.com/mmcdole/gofeed"
-	"log"
-	"strings"
 )
 
 func getFeeds() []string {
-	return []string{"https://vas3k.ru/rss/", "https://meduza.io/rss/all"}
+	return []string{"https://vas3k.ru/rss/", "https://vas3k.club/posts.rss"}
 }
 
 func parseFeed(feedUrl string) (articlesArr []database.Article) {

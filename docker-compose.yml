@@ -6,7 +6,7 @@ services:
       context: . # Use an image built from the specified dockerfile in the current directory.
       dockerfile: ./server/Dockerfile
     ports:
-      - "8080:8081"
+      - "8081:8081"
     restart: unless-stopped
     depends_on:
       - postgres
