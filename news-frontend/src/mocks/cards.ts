@@ -7,7 +7,8 @@ const newsCard: INewsCard[] = [
     {
         source: {
             title: "vc.ru",
-            icon: vcIcon
+            icon: vcIcon,
+            url: "vc.ru"
         },
         articles: [
             mockArticleVc,
@@ -18,7 +19,8 @@ const newsCard: INewsCard[] = [
     {
         source: {
             title: "Подкаст Радио Платформа",
-            icon: telegramIcon
+            icon: telegramIcon,
+            url: "t.me/radioplatforma"
         },
         articles: [
             mockArticleTelegram,

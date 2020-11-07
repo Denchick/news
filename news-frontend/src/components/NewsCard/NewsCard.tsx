@@ -11,12 +11,12 @@ interface INewsCardProps {
 }
 
 const NewsCard = ({source, articles}: INewsCardProps) => {
-    const {title, icon} = source;
+    const {title, icon, url} = source;
     return (
         <div>
             <div className="d-flex w-100 justify-content-start">
                 <Icon src={icon} />
-                <h3>{title}</h3>
+                <h3 style={{marginLeft: 5}}>{title}</h3>
             </div>
             <ListGroup>
                 {
@@ -25,7 +25,7 @@ const NewsCard = ({source, articles}: INewsCardProps) => {
                             title={article.title}
                             description={article.description}
                             howLong={"3 days ago"}
-                            source={title}
+                            source={url}
                         />)
                 }
             </ListGroup>

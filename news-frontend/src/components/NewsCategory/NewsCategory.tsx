@@ -11,9 +11,9 @@ const NewsCategory = ({title, children}: INewsCategoryProps) => {
         <div style={{marginBottom: 50}}>
             <Row>
                 <Col>
-                    <hr className="my-4" />
+                    <hr />
                     <h2 className="text-center">{title}</h2>
-                    <hr className="my-4" />
+                    <hr />
                 </Col>
             </Row>
             <Row>
