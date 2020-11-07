@@ -7,14 +7,12 @@ import NewsCategory from "./NewsCategory";
 const TechnologyCategory = () => {
     return (
         <NewsCategory title="Технологии">
-            <Row>
-                <Col>
-                    <NewsCard source={newsCard.source} articles={newsCard.articles} />            
-                </Col>
-                <Col>
-                    <NewsCard source={newsCard.source} articles={newsCard.articles} />            
-                </Col>
-            </Row>
+            <Col>
+                <NewsCard source={newsCard.source} articles={newsCard.articles} />            
+            </Col>
+            <Col>
+                <NewsCard source={newsCard.source} articles={newsCard.articles} />            
+            </Col>
         </NewsCategory>
     )
 }

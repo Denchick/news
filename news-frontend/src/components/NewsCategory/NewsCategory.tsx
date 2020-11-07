@@ -1,5 +1,5 @@
 import React from "react";
-import { Jumbotron, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 interface INewsCategoryProps {
     title?: string;
@@ -8,9 +8,10 @@ interface INewsCategoryProps {
 
 const NewsCategory = ({title, children}: INewsCategoryProps) => {
     return (
-        <Jumbotron>
+        <div style={{marginBottom: 50}}>
             <Row>
                 <Col>
+                    <hr className="my-4" />
                     <h2 className="text-center">{title}</h2>
                     <hr className="my-4" />
                 </Col>
@@ -18,7 +19,7 @@ const NewsCategory = ({title, children}: INewsCategoryProps) => {
             <Row>
                 {children}
             </Row>
-        </Jumbotron>
+        </div>
     );
 }
 
