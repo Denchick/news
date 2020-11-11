@@ -1,18 +1,9 @@
 import React from 'react';
-import Container from 'react-bootstrap/esm/Container';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer'
-import TechnologyCategory from './components/NewsCategory/TechnologyCategory';
+import MainPage from './pages/MainPage/MainPage';
 
 const App = () => {
     return (
-        <Container>
-            <Header />
-            <TechnologyCategory />
-            <TechnologyCategory />
-            <TechnologyCategory />
-            <Footer />
-        </Container>
+        <MainPage />
     );
 }
 

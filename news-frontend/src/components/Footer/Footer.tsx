@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => (
     <footer>
-        <p className="text-center">
-            агрегатор новостей just for fun. Код доступен на <a href="https://github.com/denchick/news">github.com/denchick/news</a>
+        <p className="text-center small">
+            by <a href="https://github.com/denchick/news">denchick</a>
         </p>
     </footer>
 );
