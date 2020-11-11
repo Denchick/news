@@ -9,6 +9,8 @@ const App = () => {
         <Container>
             <Header />
             <TechnologyCategory />
+            <TechnologyCategory />
+            <TechnologyCategory />
             <Footer />
         </Container>
     );

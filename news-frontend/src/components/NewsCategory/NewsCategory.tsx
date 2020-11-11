@@ -11,7 +11,6 @@ const NewsCategory = ({title, children}: INewsCategoryProps) => {
         <div style={{marginBottom: 50}}>
             <Row>
                 <Col>
-                    <hr />
                     <h2 className="text-center">{title}</h2>
                     <hr />
                 </Col>
