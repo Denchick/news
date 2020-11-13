@@ -1,6 +1,6 @@
 import { INewsCard } from "../data/NewsCard";
-import vcIcon from "../data/logo/vc-ru.png"
-import telegramIcon from "../data/logo/telegram.png"
+import vcIcon from "../data/icons/vc-ru.png"
+import telegramIcon from "../data/icons/telegram.png"
 import { mockArticleVc, mockArticleTelegram } from "./articles";
 
 const newsCard: INewsCard[] = [
@@ -18,7 +18,7 @@ const newsCard: INewsCard[] = [
     },
     {
         source: {
-            title: "Подкаст Радио Платформа",
+            title: "platforma podcast",
             icon: telegramIcon,
             url: "t.me/radioplatforma"
         },
