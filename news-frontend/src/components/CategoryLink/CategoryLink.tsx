@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Button } from "react-bootstrap";
+import {  Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CategoryName from "../../data/CategoryName";
 
@@ -16,11 +16,9 @@ const CategoryLink = ({ title, to }: ICategoryLinkProps) => {
         </Button>
     );
 
-    return (
-        <Col>
-            {disabled ? button : <Link to={to as string} style={{textDecoration: "none"}}>{button}</Link>}
-        </Col>
-    )
+    return disabled
+        ? button
+        : <Link to={to as string} style={{ textDecoration: "none" }}>{button}</Link>
 }
 
 export default CategoryLink;
