@@ -1,5 +1,8 @@
 version: "3.7"
 
+networks:
+  news:
+
 services:
 
   apiserver:

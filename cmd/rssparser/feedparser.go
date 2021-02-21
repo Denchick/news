@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/denchick/news/logger"
+	"github.com/denchick/news/internal/logger"
 	"github.com/denchick/news/models"
 	"github.com/mmcdole/gofeed"
 	"github.com/pkg/errors"

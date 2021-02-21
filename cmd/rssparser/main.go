@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/denchick/news/config"
-	"github.com/denchick/news/logger"
+	"github.com/denchick/news/internal/config"
+	"github.com/denchick/news/internal/logger"
 )
 
 // TODO read feed urls from db

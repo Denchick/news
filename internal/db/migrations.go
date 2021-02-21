@@ -1,9 +1,9 @@
-package store
+package db
 
 import (
 	"errors"
 
-	"github.com/denchick/news/config"
+	"github.com/denchick/news/internal/config"
 	"github.com/golang-migrate/migrate/v4"
 
 	_ "github.com/golang-migrate/migrate/v4/database/postgres" // required
@@ -14,8 +14,8 @@ import (
 // $ migrate create -ext sql -dir migrations *name*
 // $ migrate -path migrations -database postgres://postgres:postgres@0.0.0.0/db_news?sslmode=disable force 20210207232148
 
-// runPgMigrations runs Postgres migrations
-func runPgMigrations() error {
+// RunPgMigrations runs Postgres migrations
+func RunPgMigrations() error {
 	cfg := config.Get()
 	if cfg.PgMigrationsPath == "" {
 		return nil

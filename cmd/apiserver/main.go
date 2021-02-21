@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/denchick/news/config"
 	"github.com/denchick/news/controllers"
+	"github.com/denchick/news/internal/config"
 	"github.com/denchick/news/manager"
 	"github.com/denchick/news/store"
 	"github.com/labstack/echo/v4"
