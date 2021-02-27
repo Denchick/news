@@ -46,13 +46,13 @@ func run() error {
 			lg.Logger.Info().Msgf("Can't parse %s, skipped", url)
 			continue
 		}
+		lg.Debug().Msgf("Parsed %d articles from %s", len(articles), url)
 		err = m.News.SaveNews(articles)
 		if err != nil {
-			lg.Logger.Err(err)
-			continue
+			return errors.Wrap(err, "can't save news")
 		}
+		lg.Debug().Msgf("Safed %d news.")
 
-		lg.Debug().Msgf("Successfully parsed %d articles from %s", len(articles), url)
 	}
 	return nil
 }

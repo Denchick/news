@@ -37,8 +37,10 @@ func (fp *FeedParser) Parse(feedURL string) ([]*models.Article, error) {
 			Description: fp.getItemDescription(item),
 			Link:        strings.TrimSpace(item.Link),
 		}
-		fp.logger.Logger.Debug().Msgf("OK: %s", article.Link)
-		articles = append(articles, article)
+		if len(article.Description) > 0 {
+			fp.logger.Logger.Debug().Msgf("OK: %s with desc: '%s'", article.Link, article.Description)
+			articles = append(articles, article)
+		}
 	}
 	return articles, nil
 }
