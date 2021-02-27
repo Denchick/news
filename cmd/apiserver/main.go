@@ -41,7 +41,7 @@ func run() error {
 	e.Use(middleware.Recover())
 
 	// Init controllers
-	v1 := e.Group("/v1")
+	v1 := e.Group("/api/v1")
 
 	newsController := controllers.NewNewsController(manager)
 	newsRoutes := v1.Group("/news")

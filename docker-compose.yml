@@ -5,6 +5,20 @@ networks:
 
 services:
 
+  rssparser:
+    environment:
+      - PG_URL=postgres://postgres:postgres@postgres/db_news?sslmode=disable
+      - LOG_LEVEL=debug
+      - PG_MIGRATIONS_PATH=file://../../migrations
+    build:
+      context: .
+      dockerfile: Dockerfile-rssparser
+    command: ["./rssparser"]
+    depends_on:
+      - postgres
+    networks:
+      - news
+
   apiserver:
     restart: always
     environment:
@@ -12,10 +26,12 @@ services:
       - PG_URL=postgres://postgres:postgres@postgres/db_news?sslmode=disable
       - LOG_LEVEL=debug
       - PG_MIGRATIONS_PATH=file://../../migrations
-    build: ./
+    build:
+      context: .
+      dockerfile: Dockerfile-apiserver 
     command: ["./apiserver"]
     ports:
-      - 1323:1323
+      - 1324:1324
     depends_on:
       - postgres
     networks:

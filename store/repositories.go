@@ -7,6 +7,7 @@ import (
 // NewsRepository is a store for News
 //go:generate mockery --dir . --name NewsRepository --output ./mocks
 type NewsRepository interface {
-	FindByName(name string) ([]*models.Article, error)
-	FindSimilar(name string) ([]*models.Article, error)
+	BulkCreate([]*models.Article) error
+	GetByName(name string) ([]*models.Article, error)
+	GetSimilar(name string) ([]*models.Article, error)
 }
