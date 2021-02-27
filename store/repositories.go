@@ -11,3 +11,9 @@ type NewsRepository interface {
 	GetByName(name string) ([]*models.Article, error)
 	GetSimilar(name string) ([]*models.Article, error)
 }
+
+// FeedsRepository is a store for Feeds
+//go:generate mockery --dir . --name FeedsRepository --output ./mocks
+type FeedsRepository interface {
+	GetFeeds() ([]*models.Feed, error)
+}

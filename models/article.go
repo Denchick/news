@@ -9,9 +9,10 @@ import (
 
 // Article is an article model
 type Article struct {
-	Link        string `pg:"link"`
-	Title       string `pg:"title"`
-	Description string `pg:"description"`
+	ID          uint      `pg:"id"`
+	Link        string    `pg:"link"`
+	Title       string    `pg:"title"`
+	Description string    `pg:"description"`
 	CreatedAt   time.Time `pg:"created_at"`
 }
 

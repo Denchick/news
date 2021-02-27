@@ -13,6 +13,7 @@ import (
 type Store struct {
 	DB   *pg.DB
 	News NewsRepository
+	Feeds FeedsRepository
 }
 
 // NewStore creates new store
@@ -27,7 +28,11 @@ func NewStore() (*Store, error) {
 		return nil, errors.Wrap(err, "store.runPgMigrations")
 	}
 
-	store := &Store{pgDB, repositories.NewNewsRepository(pgDB)}
+	store := &Store{
+		DB: pgDB, 
+		News: repositories.NewNewsRepository(pgDB),
+		Feeds: repositories.NewFeedsRepository(pgDB),
+	}
 
 	return store, nil
 }

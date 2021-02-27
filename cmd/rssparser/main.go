@@ -11,11 +11,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-// TODO read feed urls from db
-func getFeeds() []string {
-	return []string{"https://vas3k.ru/rss/"}
-}
-
 func main() {
 	if err := run(); err != nil {
 		log.Fatal(err)
@@ -38,20 +33,26 @@ func run() error {
 		return errors.Wrap(err, "manager.NewManager")
 	}
 
-	urls := getFeeds()
+	feeds, err := s.Feeds.GetFeeds()
+	if err != nil {
+		return errors.Wrap(err, "store.FeedsRepository.GetFeeds")
+	}
+
+	lg.Debug().Msgf("Got %d feeds", len(feeds))
+
 	feedParser := feedparser.NewFeedParser(lg)
-	for _, url := range urls {
-		articles, err := feedParser.Parse(url)
+	for _, feed:= range feeds {
+		articles, err := feedParser.Parse(feed.URL)
 		if err != nil {
-			lg.Logger.Info().Msgf("Can't parse %s, skipped", url)
+			lg.Logger.Info().Msgf("Can't parse %s, skipped", feed.URL)
 			continue
 		}
-		lg.Debug().Msgf("Parsed %d articles from %s", len(articles), url)
+		lg.Debug().Msgf("Parsed %d articles from %s", len(articles), feed.URL)
 		err = m.News.SaveNews(articles)
 		if err != nil {
 			return errors.Wrap(err, "can't save news")
 		}
-		lg.Debug().Msgf("Safed %d news.")
+		lg.Debug().Msgf("Saved %d news.", len(articles))
 
 	}
 	return nil
