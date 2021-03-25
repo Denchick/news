@@ -6,8 +6,8 @@ networks:
 services:
   front:
     build:
-      context: front
-      dockerfile: Dockerfile
+      context: ./front
+      dockerfile: ./docker/front/Dockerfile
     ports:
       - 3000:3000
     environment:
@@ -20,8 +20,7 @@ services:
       - PG_MIGRATIONS_PATH=file://../../migrations
     build:
       context: .
-      dockerfile: Dockerfile-rssparser
-    command: ["./rssparser"]
+      dockerfile: ./docker/rssparser/Dockerfile
     depends_on:
       - postgres
     networks:
@@ -36,8 +35,7 @@ services:
       - PG_MIGRATIONS_PATH=file://../../migrations
     build:
       context: .
-      dockerfile: Dockerfile-apiserver 
-    command: ["./apiserver"]
+      dockerfile: ./docker/apiserver/Dockerfile
     ports:
       - 1324:1324
     depends_on:
