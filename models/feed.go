@@ -1,12 +1,13 @@
 package models
 
-// Feed ...
-type Feed struct {
-	ID  uint   `pg:"id"`
-	URL string `pg:"url"`
+type DBFeed struct {
+	tableName struct{} `pg:"feeds"`
+	ID        uint     `pg:"id"`
+	URL       string   `pg:"url"`
+	Name      string   `pg:"name"`
 }
 
-type FeedCategory struct {
+type DBFeedCategory struct {
 	tableName  struct{} `pg:"feeds_categories"`
 	ID         uint     `pg:"id"`
 	FeedID     uint     `pg:"feed_id"`

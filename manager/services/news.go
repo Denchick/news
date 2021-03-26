@@ -14,7 +14,7 @@ func NewNewsService(store *store.Store) *NewsService {
 	return &NewsService{store}
 }
 
-func (service *NewsService) SaveNews(articles []*models.Article) error {
+func (service *NewsService) SaveNews(articles []*models.DBArticle) error {
 	return service.store.News.BulkCreate(articles)
 }
 
@@ -35,12 +35,12 @@ func (service *NewsService) GetNews(categoryName string) ([]*models.ArticleGroup
 		if err != nil {
 			return nil, errors.Wrap(err, "manager.services.GetNews")
 		}
-		articleGroups = append(articleGroups, &models.ArticleGroups{Link: feed.URL, Articles: articles})
+		articleGroups = append(articleGroups, &models.ArticleGroups{Link: feed.URL, FeedName: feed.Name, Articles: articles})
 	}
 
 	return articleGroups, nil
 }
 
-func (service *NewsService) GetNewsByName(name string) ([]*models.Article, error) {
+func (service *NewsService) GetNewsByName(name string) ([]*models.DBArticle, error) {
 	return service.store.News.GetSimilar(name)
 }

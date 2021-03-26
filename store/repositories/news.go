@@ -14,7 +14,7 @@ func NewNewsRepository(db *pg.DB) *NewsRepository {
 	return &NewsRepository{db}
 }
 
-func (repo *NewsRepository) BulkCreate(articles []*models.Article) error {
+func (repo *NewsRepository) BulkCreate(articles []*models.DBArticle) error {
 	_, err := repo.db.Model(&articles).Insert(&articles)
 	if err != nil {
 		return errors.Wrap(err, "store.repositories.BulkCreate")
@@ -22,8 +22,8 @@ func (repo *NewsRepository) BulkCreate(articles []*models.Article) error {
 	return nil
 }
 
-func (repo *NewsRepository) GetByName(name string) ([]*models.Article, error) {
-	var articles []*models.Article
+func (repo *NewsRepository) GetByName(name string) ([]*models.DBArticle, error) {
+	var articles []*models.DBArticle
 	err := repo.db.Model(&articles).
 		Where("name = ?", name).
 		Limit(10).
@@ -36,8 +36,8 @@ func (repo *NewsRepository) GetByName(name string) ([]*models.Article, error) {
 }
 
 
-func (repo *NewsRepository) GetFromFeed(feed *models.Feed) ([]*models.Article, error) {
-	var articles []*models.Article
+func (repo *NewsRepository) GetFromFeed(feed *models.DBFeed) ([]*models.DBArticle, error) {
+	var articles []*models.DBArticle
 	err := repo.db.Model(&articles).
 		Where("feed_id = ?", feed.ID).
 		Limit(5).
@@ -48,8 +48,8 @@ func (repo *NewsRepository) GetFromFeed(feed *models.Feed) ([]*models.Article, e
 	return articles, err
 }
 
-func (repo *NewsRepository) GetSimilar(name string) ([]*models.Article, error) {
-	var articles []*models.Article
+func (repo *NewsRepository) GetSimilar(name string) ([]*models.DBArticle, error) {
+	var articles []*models.DBArticle
 	err := repo.db.Model(&articles).
 		OrderExpr("? <-> name", name).
 		Limit(3).

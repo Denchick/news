@@ -7,25 +7,25 @@ import (
 	"github.com/go-pg/pg/v10"
 )
 
-// Article is an article model
-type Article struct {
+type DBArticle struct {
+	tableName   struct{}  `pg:"articles"`
 	ID          uint      `pg:"id"`
-	Link        string    `pg:"link"` // TODO should add SourceId to faster search
+	Link        string    `pg:"link"`
 	Title       string    `pg:"title"`
 	Description string    `pg:"description"`
 	CreatedAt   time.Time `pg:"created_at"`
 	FeedID      uint      `pg:"feed_id"`
 }
 
-var _ pg.BeforeInsertHook = (*Article)(nil)
+var _ pg.BeforeInsertHook = (*DBArticle)(nil)
 
-// BeforeInsert ...
-func (article *Article) BeforeInsert(ctx context.Context) (context.Context, error) {
+func (article *DBArticle) BeforeInsert(ctx context.Context) (context.Context, error) {
 	article.CreatedAt = time.Now()
 	return ctx, nil
 }
 
 type ArticleGroups struct {
-	Link     string     `json:"link"`
-	Articles []*Article `json:"articles"`
+	FeedName string       `json:"feedName"`
+	Link     string       `json:"link"`
+	Articles []*DBArticle `json:"articles"`
 }

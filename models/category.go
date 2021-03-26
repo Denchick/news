@@ -1,6 +1,7 @@
 package models
 
-type Category struct {
-	ID int `pg:"id"`
-	Name string `pg:"name"`
+type DBCategory struct {
+	tableName struct{} `pg:"categories"`
+	ID        int      `pg:"id"`
+	Name      string   `pg:"name"`
 }

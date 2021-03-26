@@ -7,19 +7,19 @@ import (
 // NewsRepository is a store for News
 //go:generate mockery --dir . --name NewsRepository --output ./mocks
 type NewsRepository interface {
-	BulkCreate([]*models.Article) error
-	GetByName(name string) ([]*models.Article, error)
-	GetFromFeed(feed *models.Feed) ([]*models.Article, error)
-	GetSimilar(name string) ([]*models.Article, error)
+	BulkCreate([]*models.DBArticle) error
+	GetByName(name string) ([]*models.DBArticle, error)
+	GetFromFeed(feed *models.DBFeed) ([]*models.DBArticle, error)
+	GetSimilar(name string) ([]*models.DBArticle, error)
 }
 
 // FeedsRepository is a store for Feeds
 //go:generate mockery --dir . --name FeedsRepository --output ./mocks
 type FeedsRepository interface {
-	GetFeeds() ([]*models.Feed, error)
-	GetFeedsFromCategory(category *models.Category) ([]*models.Feed, error)
+	GetFeeds() ([]*models.DBFeed, error)
+	GetFeedsFromCategory(category *models.DBCategory) ([]*models.DBFeed, error)
 }
 
 type CategoriesRepository interface {
-	GetCategory(name string) (*models.Category, error)
+	GetCategory(name string) (*models.DBCategory, error)
 }

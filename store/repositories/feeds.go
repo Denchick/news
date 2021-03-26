@@ -14,8 +14,8 @@ func NewFeedsRepository(db *pg.DB) *FeedsRepository {
 	return &FeedsRepository{db}
 }
 
-func (repo *FeedsRepository) GetFeeds() ([]*models.Feed, error) {
-	var feeds []*models.Feed
+func (repo *FeedsRepository) GetFeeds() ([]*models.DBFeed, error) {
+	var feeds []*models.DBFeed
 	err := repo.db.Model(&feeds).Select()
 
 	if err != nil {
@@ -24,11 +24,11 @@ func (repo *FeedsRepository) GetFeeds() ([]*models.Feed, error) {
 	return feeds, nil
 }
 
-func (repo *FeedsRepository) GetFeedsFromCategory(category *models.Category) ([]*models.Feed, error) {
-	feeds := make([]*models.Feed, 0)
-	err := repo.db.Model((*models.FeedCategory)(nil)).
-		ColumnExpr("feed_id as id, url").
-		Join("JOIN feeds ON feeds.id = feed_category.feed_id").
+func (repo *FeedsRepository) GetFeedsFromCategory(category *models.DBCategory) ([]*models.DBFeed, error) {
+	feeds := make([]*models.DBFeed, 0)
+	err := repo.db.Model((*models.DBFeedCategory)(nil)).
+		ColumnExpr("feed_id as id, url, name").
+		Join("JOIN feeds ON feeds.id = db_feed_category.feed_id").
 		Where("feed_id = ?", category.ID).
 		Select(&feeds)
 	if err != nil {
