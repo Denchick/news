@@ -39,7 +39,8 @@ func (repo *NewsRepository) GetByName(name string) ([]*models.Article, error) {
 func (repo *NewsRepository) GetFromFeed(feed *models.Feed) ([]*models.Article, error) {
 	var articles []*models.Article
 	err := repo.db.Model(&articles).
-		Where("link LIKE ?", feed.URL + "%").
+		Where("feed_id = ?", feed.ID).
+		Limit(5).
 		Select()
 	if err != nil {
 		return nil, errors.Wrap(err, "store.repository.GetFromFeed")

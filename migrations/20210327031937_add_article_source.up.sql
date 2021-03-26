@@ -1,0 +1,2 @@
+ALTER TABLE articles
+ADD COLUMN feed_id INTEGER REFERENCES feeds(id);

@@ -14,6 +14,7 @@ type Article struct {
 	Title       string    `pg:"title"`
 	Description string    `pg:"description"`
 	CreatedAt   time.Time `pg:"created_at"`
+	FeedID      uint      `pg:"feed_id"`
 }
 
 var _ pg.BeforeInsertHook = (*Article)(nil)
