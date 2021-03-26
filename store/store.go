@@ -14,6 +14,7 @@ type Store struct {
 	DB   *pg.DB
 	News NewsRepository
 	Feeds FeedsRepository
+	Categories CategoriesRepository
 }
 
 // NewStore creates new store
@@ -32,6 +33,7 @@ func NewStore() (*Store, error) {
 		DB: pgDB, 
 		News: repositories.NewNewsRepository(pgDB),
 		Feeds: repositories.NewFeedsRepository(pgDB),
+		Categories: repositories.NewCategoryRepository(pgDB),
 	}
 
 	return store, nil

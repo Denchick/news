@@ -6,17 +6,14 @@ import (
 	"github.com/go-pg/pg/v10"
 )
 
-// NewsRepository ...
 type NewsRepository struct {
 	db *pg.DB
 }
 
-// NewNewsRepository ...
 func NewNewsRepository(db *pg.DB) *NewsRepository {
 	return &NewsRepository{db}
 }
 
-// BulkCreate ...
 func (repo *NewsRepository) BulkCreate(articles []*models.Article) error {
 	_, err := repo.db.Model(&articles).Insert(&articles)
 	if err != nil {
@@ -25,7 +22,6 @@ func (repo *NewsRepository) BulkCreate(articles []*models.Article) error {
 	return nil
 }
 
-// GetByName ... 
 func (repo *NewsRepository) GetByName(name string) ([]*models.Article, error) {
 	var articles []*models.Article
 	err := repo.db.Model(&articles).
@@ -38,7 +34,19 @@ func (repo *NewsRepository) GetByName(name string) ([]*models.Article, error) {
 	}
 	return articles, nil
 }
-// GetSimilar ...
+
+
+func (repo *NewsRepository) GetFromFeed(feed *models.Feed) ([]*models.Article, error) {
+	var articles []*models.Article
+	err := repo.db.Model(&articles).
+		Where("link LIKE ?", feed.URL + "%").
+		Select()
+	if err != nil {
+		return nil, errors.Wrap(err, "store.repository.GetFromFeed")
+	}
+	return articles, err
+}
+
 func (repo *NewsRepository) GetSimilar(name string) ([]*models.Article, error) {
 	var articles []*models.Article
 	err := repo.db.Model(&articles).

@@ -45,6 +45,7 @@ services:
 
   postgres:
     image: postgres
+    command: ["postgres", "-c", "log_statement=all"]
     restart: always
     environment:
       - POSTGRES_USER=postgres

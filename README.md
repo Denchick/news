@@ -17,3 +17,29 @@ Pet-projects just for fun. Collects news from different sources in one place.
 ```
 docker-compose up
 ```
+
+# API News
+
+## `GET /news/technology`
+
+response:
+
+```
+[
+    {
+        "sourceName": "vas3k.ru",
+        "items": [
+            {
+                // newsItem1
+            },
+            {
+                // newsItem2
+            },
+            ...
+        ]
+    },
+    {
+        ...
+    }
+]
+```json

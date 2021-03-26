@@ -5,6 +5,7 @@ import (
 
 	"github.com/denchick/news/manager"
 	"github.com/labstack/echo/v4"
+	"github.com/pkg/errors"
 )
 
 // NewsController ...
@@ -19,5 +20,16 @@ func NewNewsController(services *manager.Manager) *NewsController {
 
 // Get ...
 func (controller *NewsController) Get(c echo.Context) error {
-	return c.NoContent(http.StatusOK)
+	articleGroups, err := controller.services.News.GetNews("technology")
+	
+	if err != nil {
+		return echo.NewHTTPError(
+			http.StatusInternalServerError, 
+			errors.Wrap(err, "could not get news"),
+		)
+	}
+	if len(articleGroups) == 0 {
+		return c.NoContent(http.StatusNotFound)
+	}
+	return c.JSON(http.StatusOK, articleGroups)
 }

@@ -5,6 +5,6 @@ import "github.com/denchick/news/models"
 // NewsService ...
 type NewsService interface {
 	SaveNews(articles []*models.Article) error
-	GetNewsByTag(tag string, count int) ([]*models.Article, error)
+	GetNews(category string) ([]*models.ArticleGroups, error)
 	GetNewsByName(name string) ([]*models.Article, error)
 }
