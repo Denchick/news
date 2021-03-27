@@ -26,10 +26,11 @@ func (repo *FeedsRepository) GetFeeds() ([]*models.DBFeed, error) {
 
 func (repo *FeedsRepository) GetFeedsFromCategory(category *models.DBCategory) ([]*models.DBFeed, error) {
 	feeds := make([]*models.DBFeed, 0)
+
 	err := repo.db.Model((*models.DBFeedCategory)(nil)).
-		ColumnExpr("feed_id as id, url, name").
+		ColumnExpr("feed_id as id, url, name"). //todo тт ошибка
 		Join("JOIN feeds ON feeds.id = db_feed_category.feed_id").
-		Where("feed_id = ?", category.ID).
+		Where("category_id = ?", category.ID).
 		Select(&feeds)
 	if err != nil {
 		return nil, errors.Wrap(err, "store.repository.GetFeedsFromCategory")

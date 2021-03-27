@@ -22,20 +22,21 @@ func NewFeedParser(logger *logger.Logger) *FeedParser {
 }
 
 // Parse parses feed by URL
-func (fp *FeedParser) Parse(feedURL string) ([]*models.DBArticle, error) {
-	fp.logger.Logger.Debug().Msgf("Start %s parsing...", feedURL)
-	feed, err := fp.parser.ParseURL(feedURL)
+func (fp *FeedParser) Parse(feed *models.DBFeed) ([]*models.DBArticle, error) {
+	fp.logger.Logger.Debug().Msgf("Start %s parsing...", feed.URL)
+	parsedFeed, err := fp.parser.ParseURL(feed.URL)
 	if err != nil {
 		return nil, errors.Wrap(err, "feedparser.ParseFeed")
 	}
 
 	fp.logger.Logger.Debug().Msg("Got feed, start items parsing...")
 	var articles []*models.DBArticle
-	for _, item := range feed.Items {
+	for _, item := range parsedFeed.Items {
 		article := &models.DBArticle{
 			Title:       strings.TrimSpace(item.Title),
 			Description: fp.getItemDescription(item),
 			Link:        strings.TrimSpace(item.Link),
+			FeedID:      feed.ID,
 		}
 		if len(article.Description) > 0 {
 			fp.logger.Logger.Debug().Msgf("OK: %s with desc: '%s'", article.Link, article.Description)
@@ -46,7 +47,7 @@ func (fp *FeedParser) Parse(feedURL string) ([]*models.DBArticle, error) {
 }
 
 func (fp *FeedParser) getItemDescription(item *gofeed.Item) string {
-	var description string;
+	var description string
 	if len(item.Description) > 0 {
 		description = item.Description
 	} else {
@@ -69,7 +70,7 @@ func (fp *FeedParser) cleanText(text string, limit int) (string, error) {
 
 	text = strings.TrimSpace(doc.Text())
 	text = strings.ReplaceAll(text, "\n", " ")
-	
+
 	runes := []rune(text)
 	if len(runes) >= limit {
 		return string(runes[:limit]) + "...", nil

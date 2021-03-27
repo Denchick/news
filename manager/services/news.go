@@ -15,7 +15,13 @@ func NewNewsService(store *store.Store) *NewsService {
 }
 
 func (service *NewsService) SaveNews(articles []*models.DBArticle) error {
-	return service.store.News.BulkCreate(articles)
+	for _, article := range articles {	
+		err := service.store.News.Create(article)
+		if err != nil {
+			return errors.Wrap(err, "manager.services.SaveNews")
+		}
+	}
+	return nil
 }
 
 func (service *NewsService) GetNews(categoryName string) ([]*models.ArticleGroups, error) {
@@ -29,7 +35,7 @@ func (service *NewsService) GetNews(categoryName string) ([]*models.ArticleGroup
 		return nil, errors.Wrap(err, "manager.services.GetNews")
 	}	
 
-	articleGroups := make([]*models.ArticleGroups, len(feeds))
+	articleGroups := make([]*models.ArticleGroups, 0)
 	for _, feed := range feeds {	
 		articles, err := service.store.News.GetFromFeed(feed)
 		if err != nil {

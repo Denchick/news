@@ -42,7 +42,7 @@ func run() error {
 
 	feedParser := feedparser.NewFeedParser(lg)
 	for _, feed:= range feeds {
-		articles, err := feedParser.Parse(feed.URL)
+		articles, err := feedParser.Parse(feed)
 		if err != nil {
 			lg.Logger.Info().Msgf("Can't parse %s, skipped", feed.URL)
 			continue

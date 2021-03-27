@@ -1,9 +1,9 @@
 package repositories
 
 import (
-	"github.com/pkg/errors"
 	"github.com/denchick/news/models"
 	"github.com/go-pg/pg/v10"
+	"github.com/pkg/errors"
 )
 
 type NewsRepository struct {
@@ -14,10 +14,12 @@ func NewNewsRepository(db *pg.DB) *NewsRepository {
 	return &NewsRepository{db}
 }
 
-func (repo *NewsRepository) BulkCreate(articles []*models.DBArticle) error {
-	_, err := repo.db.Model(&articles).Insert(&articles)
+func (repo *NewsRepository) Create(article *models.DBArticle) error {
+	_, err := repo.db.Model(article).
+		OnConflict("(link) DO NOTHING").
+		Insert(article)
 	if err != nil {
-		return errors.Wrap(err, "store.repositories.BulkCreate")
+		return errors.Wrap(err, "store.repositories.Create")
 	}
 	return nil
 }
@@ -34,7 +36,6 @@ func (repo *NewsRepository) GetByName(name string) ([]*models.DBArticle, error) 
 	}
 	return articles, nil
 }
-
 
 func (repo *NewsRepository) GetFromFeed(feed *models.DBFeed) ([]*models.DBArticle, error) {
 	var articles []*models.DBArticle
