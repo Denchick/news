@@ -10,7 +10,7 @@ import (
 type DBArticle struct {
 	tableName   struct{}  `pg:"articles"`
 	ID          uint      `pg:"id"`
-	Link        string    `pg:"link"`
+	URL         string    `pg:"url"`
 	Title       string    `pg:"title"`
 	Description string    `pg:"description"`
 	CreatedAt   time.Time `pg:"created_at"`
@@ -24,8 +24,24 @@ func (article *DBArticle) BeforeInsert(ctx context.Context) (context.Context, er
 	return ctx, nil
 }
 
-type ArticleGroups struct {
-	FeedName string       `json:"feedName"`
-	Link     string       `json:"link"`
-	Articles []*DBArticle `json:"articles"`
+type WebArticle struct {
+	URL         string    `json:"url"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	CreatedAt   time.Time `json:"createdAt"`
+}
+
+func (article *DBArticle) ToWebArticle() *WebArticle {
+	return &WebArticle{
+		URL:         article.URL,
+		Title:       article.Title,
+		Description: article.Description,
+		CreatedAt:   article.CreatedAt,
+	}
+}
+
+type ArticlesGroup struct {
+	FeedName string        `json:"feedName"`
+	URL      string        `json:"url"`
+	Articles []*WebArticle `json:"articles"`
 }

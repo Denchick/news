@@ -44,10 +44,10 @@ func run() error {
 	for _, feed:= range feeds {
 		articles, err := feedParser.Parse(feed)
 		if err != nil {
-			lg.Logger.Info().Msgf("Can't parse %s, skipped", feed.URL)
+			lg.Logger.Info().Msgf("Can't parse %s, skipped", feed.FeedURL)
 			continue
 		}
-		lg.Debug().Msgf("Parsed %d articles from %s", len(articles), feed.URL)
+		lg.Debug().Msgf("Parsed %d articles from %s", len(articles), feed.FeedURL)
 		err = m.News.SaveNews(articles)
 		if err != nil {
 			return errors.Wrap(err, "can't save news")

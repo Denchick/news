@@ -20,11 +20,15 @@ func NewNewsController(services *manager.Manager) *NewsController {
 
 // Get ...
 func (controller *NewsController) Get(c echo.Context) error {
-	articleGroups, err := controller.services.News.GetNews("technology")
-	
+	category := c.QueryParam("category")
+	if len(category) == 0 {
+		return c.NoContent(http.StatusBadRequest)
+	}
+
+	articleGroups, err := controller.services.News.GetNews(category)
 	if err != nil {
 		return echo.NewHTTPError(
-			http.StatusInternalServerError, 
+			http.StatusInternalServerError,
 			errors.Wrap(err, "could not get news"),
 		)
 	}

@@ -5,6 +5,7 @@ type DBFeed struct {
 	ID        uint     `pg:"id"`
 	URL       string   `pg:"url"`
 	Name      string   `pg:"name"`
+	FeedURL   string   `pg:"feed_url"`
 }
 
 type DBFeedCategory struct {
