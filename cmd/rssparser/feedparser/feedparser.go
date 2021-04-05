@@ -23,7 +23,7 @@ func NewFeedParser(logger *logger.Logger) *FeedParser {
 
 // Parse parses feed by URL
 func (fp *FeedParser) Parse(feed *models.DBFeed) ([]*models.DBArticle, error) {
-	fp.logger.Logger.Debug().Msgf("Start %s parsing...", feed.URL)
+	fp.logger.Logger.Debug().Msgf("Start %s parsing...", feed.Name)
 	parsedFeed, err := fp.parser.ParseURL(feed.FeedURL)
 	if err != nil {
 		return nil, errors.Wrap(err, "feedparser.ParseFeed")
@@ -35,14 +35,16 @@ func (fp *FeedParser) Parse(feed *models.DBFeed) ([]*models.DBArticle, error) {
 		article := &models.DBArticle{
 			Title:       strings.TrimSpace(item.Title),
 			Description: fp.getItemDescription(item),
-			URL:        strings.TrimSpace(item.Link),
+			URL:         strings.TrimSpace(item.Link),
 			FeedID:      feed.ID,
+			PublishedAt:   *item.PublishedParsed,
 		}
 		if len(article.Description) > 0 {
 			fp.logger.Logger.Debug().Msgf("OK: %s with desc: '%s'", article.URL, article.Description)
 			articles = append(articles, article)
 		}
 	}
+	fp.logger.Logger.Debug().Msgf("Parsed %d articles from %s", len(articles), feed.FeedURL)
 	return articles, nil
 }
 

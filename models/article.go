@@ -14,6 +14,7 @@ type DBArticle struct {
 	Title       string    `pg:"title"`
 	Description string    `pg:"description"`
 	CreatedAt   time.Time `pg:"created_at"`
+	PublishedAt time.Time `pg:"published_at"`
 	FeedID      uint      `pg:"feed_id"`
 }
 
@@ -29,6 +30,7 @@ type WebArticle struct {
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
 	CreatedAt   time.Time `json:"createdAt"`
+	PublishedAt time.Time `json:"publishedAt"`
 }
 
 func (article *DBArticle) ToWebArticle() *WebArticle {
@@ -37,6 +39,7 @@ func (article *DBArticle) ToWebArticle() *WebArticle {
 		Title:       article.Title,
 		Description: article.Description,
 		CreatedAt:   article.CreatedAt,
+		PublishedAt: article.PublishedAt,
 	}
 }
 

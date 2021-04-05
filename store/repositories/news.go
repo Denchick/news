@@ -16,7 +16,7 @@ func NewNewsRepository(db *pg.DB) *NewsRepository {
 
 func (repo *NewsRepository) Create(article *models.DBArticle) error {
 	_, err := repo.db.Model(article).
-		OnConflict("(link) DO NOTHING").
+		OnConflict("(url) DO NOTHING").
 		Insert(article)
 	if err != nil {
 		return errors.Wrap(err, "store.repositories.Create")
