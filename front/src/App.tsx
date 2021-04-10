@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MainPage from './pages/MainPage/MainPage';
-import TechnologyPage from './pages/TechnologyPage/TechnologyPage';
+import NewsPage from './pages/NewsPage/NewsPage';
 
 const App = () => {
     return (
@@ -10,8 +10,8 @@ const App = () => {
                 <Route path="/" exact={true}>
                     <MainPage />
                 </Route>
-                <Route path="/tech" exact={true}>
-                    <TechnologyPage />
+                <Route path="/dev" exact={true}>
+                    <NewsPage />
                 </Route>
             </Switch>
       </BrowserRouter>

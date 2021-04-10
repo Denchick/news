@@ -1,6 +1,7 @@
 export interface IArticle {
+    url: string;
     title: string;
     description: string;
     createdAt: Date;
-    url: string
+    publishedAt?: Date;
 }

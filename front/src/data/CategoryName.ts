@@ -2,7 +2,7 @@ import Emoji from "./Emoji";
 
 enum CategoryName {
     News = Emoji.Earth + "News",
-    Technology = Emoji.ManTechnologist + "Technology",
+    Development = Emoji.ManTechnologist + "Development",
     PeoplesBlogs = Emoji.Smile + "People's blogs",
     German = Emoji.Germany + "German",
     Polish = Emoji.Poland + "Polish",

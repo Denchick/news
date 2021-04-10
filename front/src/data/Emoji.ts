@@ -1,5 +1,5 @@
 enum Emoji {
-    Newspaper = "📰",
+    Newspaper = "",
     Earth = "🌎",
     ManTechnologist = "👨‍💻",
     Smile = "🙂",

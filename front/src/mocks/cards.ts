@@ -1,9 +1,9 @@
-import { INewsCard } from "../data/NewsCard";
+import { INewsColumnContent } from "../data/NewsColumnContent";
 import vcIcon from "../data/icons/vc-ru.png"
 import telegramIcon from "../data/icons/telegram.png"
 import { mockArticleVc, mockArticleTelegram } from "./articles";
 
-const newsCard: INewsCard[] = [
+const newsCard: INewsColumnContent[] = [
     {
         source: {
             title: "vc.ru",

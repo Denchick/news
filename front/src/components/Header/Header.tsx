@@ -6,7 +6,7 @@ interface IHeaderProps {
     description?: string;
 }
 
-const Header = ({title, description}: IHeaderProps) => (
+const Header = ({ title, description }: IHeaderProps) => (
     <header className="m-5">
         <h1 className="display-1 text-center">
             {title}
