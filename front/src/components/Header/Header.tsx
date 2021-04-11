@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryName from "../../data/CategoryName";
+import { CategoryName } from "../../data/Category";
 
 interface IHeaderProps {
     title: string | CategoryName;

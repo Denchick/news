@@ -1,42 +1,18 @@
-import CategoryName from "../../data/CategoryName";
+import { CategoryName } from "../../data/Category";
 
-export interface IMainPageCategory {
-    title: CategoryName;
-    path?: string;
-}
-
-export const rows: IMainPageCategory[][] = [
+export const rows: CategoryName[][] = [
     [
-        {
-            title: CategoryName.News,
-            path: "/news"
-        },
-        {
-            title: CategoryName.Development,
-            path: "/tech"
-        },
-        {
-            title: CategoryName.PeoplesBlogs,
-            path: "/blogs"
-        }
+        CategoryName.News,
+        CategoryName.Development,
+        CategoryName.PeoplesBlogs,
     ],
     [
-        {
-            title: CategoryName.German
-        },
-        {
-            title: CategoryName.Polish
-        }
+        CategoryName.German,
+        CategoryName.Polish,
     ],
     [
-        {
-            title: CategoryName.Frontend
-        },
-        {
-            title: CategoryName.MachineLearning
-        },
-        {
-            title: CategoryName.Backend
-        }
+        CategoryName.Frontend,
+        CategoryName.MachineLearning,
+        CategoryName.Backend
     ]
-]
+];

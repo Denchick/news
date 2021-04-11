@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { CategoryName } from './data/Category';
 import MainPage from './pages/MainPage/MainPage';
 import NewsPage from './pages/NewsPage/NewsPage';
 
@@ -11,7 +12,7 @@ const App = () => {
                     <MainPage />
                 </Route>
                 <Route path="/dev" exact={true}>
-                    <NewsPage />
+                    <NewsPage categoryName={CategoryName.Development} />
                 </Route>
             </Switch>
       </BrowserRouter>
