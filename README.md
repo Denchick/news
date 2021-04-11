@@ -1,45 +1,20 @@
+![Github CI/CD](https://img.shields.io/github/workflow/status/denchick/news/Go?style=for-the-badge&logo=github)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/denchick/news?style=for-the-badge)
+![Go Report](https://goreportcard.com/badge/github.com/denchick/news?style=for-the-badge)
+![Github Repository Size](https://img.shields.io/github/repo-size/denchick/news?style=for-the-badge)
+![Lines of code](https://img.shields.io/tokei/lines/github/denchick/news?style=for-the-badge)
+
 # news
 
-Pet-projects just for fun. Collects news from different sources in one place.
+Collect news from different sources in just one place. Simple, not perfect, and in progress. It's not even deployed yet!
 
-![preview](preview.png)
+How it looks a half year ago:
 
-## Whats next?
+![preview](assets/preview-old.png)
 
-- add news by categories
-- replace gorm to github.com/jackc/pgx
-- add feed source management (replace `getFeed()`)
-- rewrite frontend to TS/React
-- deploy to cloud
+How it looks now:
 
-## How to run?
+![preview2](assets/preview1.png)
+![preview3](assets/preview2.png)
 
-```
-docker-compose up
-```
-
-# API News
-
-## `GET /news/technology`
-
-response:
-
-```
-[
-    {
-        "sourceName": "vas3k.ru",
-        "items": [
-            {
-                // newsItem1
-            },
-            {
-                // newsItem2
-            },
-            ...
-        ]
-    },
-    {
-        ...
-    }
-]
-```json
+Inspired by [infomate.club](https://infomate.club/).
