@@ -9,8 +9,9 @@ type DBFeed struct {
 }
 
 type DBFeedCategory struct {
-	tableName  struct{} `pg:"feeds_categories"`
-	ID         uint     `pg:"id"`
-	FeedID     uint     `pg:"feed_id"`
-	CategoryID uint     `pg:"category_id"`
+	tableName     struct{} `pg:"feeds_categories"`
+	ID            uint     `pg:"id"`
+	FeedID        uint     `pg:"feed_id"`
+	CategoryID    uint     `pg:"category_id"`
+	SubcategoryID uint     `pg:"subcategory_id"`
 }

@@ -25,15 +25,15 @@ func (controller *NewsController) Get(c echo.Context) error {
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	articleGroups, err := controller.services.News.GetNews(category)
+	newsBySubcategories, err := controller.services.News.GetNews(category)
 	if err != nil {
 		return echo.NewHTTPError(
 			http.StatusInternalServerError,
 			errors.Wrap(err, "could not get news"),
 		)
 	}
-	if len(articleGroups) == 0 {
+	if len(newsBySubcategories) == 0 {
 		return c.NoContent(http.StatusNotFound)
 	}
-	return c.JSON(http.StatusOK, articleGroups)
+	return c.JSON(http.StatusOK, newsBySubcategories)
 }

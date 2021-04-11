@@ -17,9 +17,13 @@ type NewsRepository interface {
 //go:generate mockery --dir . --name FeedsRepository --output ./mocks
 type FeedsRepository interface {
 	GetFeeds() ([]*models.DBFeed, error)
-	GetFeedsFromCategory(category *models.DBCategory) ([]*models.DBFeed, error)
+	GetSubcategoryFeeds(subcategory *models.DBSubcategory) ([]*models.DBFeed, error)
 }
 
 type CategoriesRepository interface {
 	GetCategory(name string) (*models.DBCategory, error)
+}
+
+type SubcategoriesRepository interface {
+	GetSubcategories(categoryID uint) ([]*models.DBSubcategory, error)
 }

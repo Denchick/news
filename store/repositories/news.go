@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-type NewsRepository struct {
+type NewsRepository struct { // TODO rename to articlesRepository
 	db *pg.DB
 }
 

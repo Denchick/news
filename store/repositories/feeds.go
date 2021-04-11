@@ -24,14 +24,16 @@ func (repo *FeedsRepository) GetFeeds() ([]*models.DBFeed, error) {
 	return feeds, nil
 }
 
-func (repo *FeedsRepository) GetFeedsFromCategory(category *models.DBCategory) ([]*models.DBFeed, error) {
+func (repo *FeedsRepository) GetSubcategoryFeeds(subcategory *models.DBSubcategory) ([]*models.DBFeed, error) {
 	feeds := make([]*models.DBFeed, 0)
 
-	err := repo.db.Model((*models.DBFeedCategory)(nil)).
-		ColumnExpr("feed_id as id, url, name"). //todo тт ошибка
-		Join("JOIN feeds ON feeds.id = db_feed_category.feed_id").
-		Where("category_id = ?", category.ID).
-		Select(&feeds)
+	_, err := repo.db.Query(&feeds, `
+		SELECT feed_id as id, url, name
+		FROM feeds_categories
+		JOIN feeds ON feeds.id = feeds_categories.feed_id
+		WHERE subcategory_id = ?;
+	`, subcategory.ID)
+	
 	if err != nil {
 		return nil, errors.Wrap(err, "store.repository.GetFeedsFromCategory")
 	}

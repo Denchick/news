@@ -11,10 +11,11 @@ import (
 
 // Store contains all repositories
 type Store struct {
-	DB   *pg.DB
-	News NewsRepository
-	Feeds FeedsRepository
-	Categories CategoriesRepository
+	DB            *pg.DB
+	News          NewsRepository
+	Feeds         FeedsRepository
+	Categories    CategoriesRepository
+	Subcategories SubcategoriesRepository
 }
 
 // NewStore creates new store
@@ -30,12 +31,12 @@ func NewStore() (*Store, error) {
 	}
 
 	store := &Store{
-		DB: pgDB, 
-		News: repositories.NewNewsRepository(pgDB),
-		Feeds: repositories.NewFeedsRepository(pgDB),
-		Categories: repositories.NewCategoryRepository(pgDB),
+		DB:            pgDB,
+		News:          repositories.NewNewsRepository(pgDB),
+		Feeds:         repositories.NewFeedsRepository(pgDB),
+		Categories:    repositories.NewCategoryRepository(pgDB),
+		Subcategories: repositories.NewSubcategoryRepository(pgDB),
 	}
 
 	return store, nil
 }
-

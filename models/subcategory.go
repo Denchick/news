@@ -1,7 +1,7 @@
 package models
 
-type DBCategory struct {
-	tableName struct{} `pg:"categories"`
+type DBSubcategory struct {
+	tableName struct{} `pg:"subcategories"`
 	ID        uint     `pg:"id"`
 	Name      string   `pg:"name"`
 }
