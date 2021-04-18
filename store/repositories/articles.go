@@ -6,15 +6,18 @@ import (
 	"github.com/pkg/errors"
 )
 
-type NewsRepository struct { // TODO rename to articlesRepository
+// ArticlesRepository...
+type ArticlesRepository struct {
 	db *pg.DB
 }
 
-func NewNewsRepository(db *pg.DB) *NewsRepository {
-	return &NewsRepository{db}
+// NewArticlesRepository creates new ArticlesRepository 
+func NewArticlesRepository(db *pg.DB) *ArticlesRepository {
+	return &ArticlesRepository{db}
 }
 
-func (repo *NewsRepository) Create(article *models.DBArticle) error {
+// Create creates article
+func (repo *ArticlesRepository) Create(article *models.DBArticle) error {
 	_, err := repo.db.Model(article).
 		OnConflict("(url) DO NOTHING").
 		Insert(article)
@@ -24,7 +27,8 @@ func (repo *NewsRepository) Create(article *models.DBArticle) error {
 	return nil
 }
 
-func (repo *NewsRepository) GetByName(name string) ([]*models.DBArticle, error) {
+// GetByName retrieves articles by name from Postgres
+func (repo *ArticlesRepository) GetByName(name string) ([]*models.DBArticle, error) {
 	var articles []*models.DBArticle
 	err := repo.db.Model(&articles).
 		Where("name = ?", name).
@@ -37,7 +41,8 @@ func (repo *NewsRepository) GetByName(name string) ([]*models.DBArticle, error) 
 	return articles, nil
 }
 
-func (repo *NewsRepository) GetFromFeed(feed *models.DBFeed) ([]*models.DBArticle, error) {
+// GetFromFeed retrieves feed's articles from Postgres 
+func (repo *ArticlesRepository) GetFromFeed(feed *models.DBFeed) ([]*models.DBArticle, error) {
 	var articles []*models.DBArticle
 	err := repo.db.Model(&articles).
 		Where("feed_id = ?", feed.ID).
@@ -49,7 +54,8 @@ func (repo *NewsRepository) GetFromFeed(feed *models.DBFeed) ([]*models.DBArticl
 	return articles, err
 }
 
-func (repo *NewsRepository) GetSimilar(name string) ([]*models.DBArticle, error) {
+// GetSimilar retrieves similar articles from Postgres
+func (repo *ArticlesRepository) GetSimilar(name string) ([]*models.DBArticle, error) {
 	var articles []*models.DBArticle
 	err := repo.db.Model(&articles).
 		OrderExpr("? <-> name", name).

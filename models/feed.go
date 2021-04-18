@@ -1,5 +1,6 @@
 package models
 
+// DBFeed is the database model for feed
 type DBFeed struct {
 	tableName struct{} `pg:"feeds"`
 	ID        uint     `pg:"id"`
@@ -8,6 +9,7 @@ type DBFeed struct {
 	FeedURL   string   `pg:"feed_url"`
 }
 
+// DBFeedCategory is the database model for feed category
 type DBFeedCategory struct {
 	tableName     struct{} `pg:"feeds_categories"`
 	ID            uint     `pg:"id"`

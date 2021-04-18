@@ -6,14 +6,17 @@ import (
 	"github.com/pkg/errors"
 )
 
+// SubcategoriesRepository...
 type SubcategoriesRepository struct {
 	db *pg.DB
 }
 
+// NewSubcategoryRepository creates new SubcategoriesRepository
 func NewSubcategoryRepository(db *pg.DB) *SubcategoriesRepository {
 	return &SubcategoriesRepository{db}
 }
 
+// GetSubcategories retrieves subcategories from Postgres
 func (repo *SubcategoriesRepository) GetSubcategories(categoryID uint) ([]*models.DBSubcategory, error) {
 	var subcategories []*models.DBSubcategory
 

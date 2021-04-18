@@ -37,7 +37,7 @@ func (fp *FeedParser) Parse(feed *models.DBFeed) ([]*models.DBArticle, error) {
 			Description: fp.getItemDescription(item),
 			URL:         strings.TrimSpace(item.Link),
 			FeedID:      feed.ID,
-			PublishedAt:   *item.PublishedParsed,
+			PublishedAt: *item.PublishedParsed,
 		}
 		if len(article.Description) > 0 {
 			fp.logger.Logger.Debug().Msgf("OK: %s with desc: '%s'", article.URL, article.Description)

@@ -26,7 +26,7 @@ func run() error {
 	if err != nil {
 		return errors.Wrap(err, "store.NewStore")
 	}
-	
+
 	// Init manager
 	m, err := manager.NewManager(s)
 	if err != nil {
@@ -41,7 +41,7 @@ func run() error {
 	lg.Debug().Msgf("Got %d feeds", len(feeds))
 
 	feedParser := feedparser.NewFeedParser(lg)
-	for _, feed:= range feeds {
+	for _, feed := range feeds {
 		articles, err := feedParser.Parse(feed)
 		if err != nil {
 			lg.Logger.Info().Msgf("Can't parse %s, skipped", feed.FeedURL)

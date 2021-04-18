@@ -7,6 +7,7 @@ import (
 	"github.com/go-pg/pg/v10"
 )
 
+// DBArticle is the database model for Article
 type DBArticle struct {
 	tableName   struct{}  `pg:"articles"`
 	ID          uint      `pg:"id"`
@@ -20,9 +21,8 @@ type DBArticle struct {
 
 var _ pg.BeforeInsertHook = (*DBArticle)(nil)
 
+// BeforeInsert...
 func (article *DBArticle) BeforeInsert(ctx context.Context) (context.Context, error) {
 	article.CreatedAt = time.Now()
 	return ctx, nil
 }
-
-

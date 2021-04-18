@@ -28,7 +28,7 @@ func run() error {
 	if err != nil {
 		return errors.Wrap(err, "store.NewStore")
 	}
-	
+
 	// Init manager
 	manager, err := manager.NewManager(store)
 	if err != nil {

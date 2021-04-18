@@ -10,7 +10,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-// Usefull migrate commands
+// Useful migrate commands
 // $ migrate create -ext sql -dir migrations *name*
 // $ migrate -path migrations -database postgres://postgres:postgres@0.0.0.0/db_news?sslmode=disable force 20210207232148
 
