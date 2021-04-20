@@ -8,13 +8,13 @@
 
 Collect news from different sources in just one place. Simple, not perfect, and in progress. It's not even deployed yet!
 
-How it looks a half year ago:
-
-![preview](assets/preview-old.png)
-
 How it looks now:
 
 ![preview2](assets/preview1.png)
 ![preview3](assets/preview2.png)
+
+How it looks a half year ago:
+
+![preview](assets/preview-old.png)
 
 Inspired by [infomate.club](https://infomate.club/).
